@@ -25,7 +25,7 @@ public class ProcessoCadastro extends BasePage {
         }
     }
 
-    public void setCombobox(String campo, String valor) throws Exception {
+    public void setSelect(String campo, String valor) throws Exception {
         switch (campo) {
             case "Urgente":
                 driver.selectByText(valor, "processo_urgente");
@@ -35,7 +35,7 @@ public class ProcessoCadastro extends BasePage {
         }
     }
 
-    public void save() {
+    public void clickSalvar() {
         driver.click("btn-save");
     }
 }

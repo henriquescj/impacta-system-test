@@ -5,8 +5,8 @@ import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
+import org.junit.Assert;
 import pages.*;
-import support.RESTSupport;
 import support.BaseSteps;
 
 public class ProcessoSteps extends BaseSteps {
@@ -16,69 +16,80 @@ public class ProcessoSteps extends BaseSteps {
     private static ProcessoCadastro cadastro = new ProcessoCadastro(driver);
     private static ProcessoIndividual individual =  new ProcessoIndividual(driver);
 
-    @Dado("^que estou na página principal$")
-    public void queEstouNaPáginaPrincipal() {
+    @Dado("^que o usuário está na página inicial$")
+    public void queoUsuarioEstaNaPaginaInicial() {
         homePage.open();
     }
 
-    @E("^clicou em Processos no menu lateral$")
-    public void clicouEmProcessosNoMenuLateral() {
+    @E("^clica em Processos no menu lateral$")
+    public void clicaEmProcessosNoMenuLateral() {
         menuLateral.clickProcessos();
     }
 
-    @E("^clicou em Novo Processo$")
-    public void clicouEmNovoProcesso() {
-        listagem.clicouNovoProcesso();
+    @E("^clica em Novo Processo$")
+    public void clicaEmNovoProcesso() {
+        listagem.clickNovoProcesso();
     }
 
-    @E("^em processo preencher campo \"([^\"]*)\" com valor de \"([^\"]*)\"$")
-    public void emProcessoPreencherCampoComValorDe(String campo, String valor) {
+    @E("^preenche campo \"([^\"]*)\" com valor \"([^\"]*)\"$")
+    public void preencheCampoComValor(String campo, String valor) {
         cadastro.insertText(campo, valor);
     }
 
-    @E("^radio button \"([^\"]*)\" selecionar \"([^\"]*)\"$")
-    public void radioButtonSelecionar(String campo, String valor) throws Throwable {
+    @E("^no radio button \"([^\"]*)\" seleciona \"([^\"]*)\"$")
+    public void noRadioButtonSeleciona(String campo, String valor) throws Throwable {
         cadastro.setRadioButton(campo, valor);
     }
 
-    @E("^combobox \"([^\"]*)\" selecionar \"([^\"]*)\"$")
-    public void comboboxSelecionar(String campo, String valor) throws Throwable {
-        cadastro.setCombobox(campo, valor);
+    @E("^no select \"([^\"]*)\" seleciona \"([^\"]*)\"$")
+    public void noSelectSeleciona(String campo, String valor) throws Throwable {
+        cadastro.setSelect(campo, valor);
     }
 
-    @Quando("^em processo clicar em Salvar$")
-    public void emProcessoClicarEmSalvar() {
-        cadastro.save();
+    @Quando("^clica em Salvar$")
+    public void clicaEmSalvar() {
+        cadastro.clickSalvar();
     }
 
 
-    @Então("^na tela de confirmação deveria retornar mensagem \"([^\"]*)\"$")
-    public void naTelaDeConfirmaçãoDeveriaRetornarMensagem(String mensagem) throws Throwable {
+    @Então("^na tela de confirmação deve retornar mensagem \"([^\"]*)\"$")
+    public void naTelaDeConfirmacaoDeveRetornarMensagem(String mensagem) {
         individual.checkMessage(mensagem);
     }
 
-    @E("^obter o código do processo$")
-    public void obterOCódigoDoProcesso() {
-        individual.clickGoBack();
+    @E("^obtém o código do processo$")
+    public void obtemOCodigoDoProcesso() {
+        individual.storeProcessoCode();
     }
 
-    @E("^clicar em Voltar na tela do processo$")
-    public void clicarEmVoltarNaTelaDoProcesso() {
-        
+    @E("^clica em Voltar na tela do processo$")
+    public void clicaEmVoltarNaTelaDoProcesso() {
+        individual.clickVoltar();
     }
 
-    @E("^clicar no botão mostrar na linha do registro do processo$")
-    public void clicarNoBotãoMostrarNaLinhaDoRegistroDoProcesso() {
-        
+    @E("^clica em Mostrar na linha do registro do processo$")
+    public void clicaEmMostrarNaLinhaDoRegistroDoProcesso() {
+        listagem.clickMostrar(
+                individual.getProcessoCode()
+        );
     }
 
-    @Então("^na tela do processo o código deveria ser do registro cadastrado$")
-    public void naTelaDoProcessoOCódigoDeveriaSerDoRegistroCadastrado() {
+    @Então("^na tela do processo o código deve ser igual ao obtido$")
+    public void naTelaDoProcessoOCodigoDeveSerIgualAoObtido() {
+        String obtained = individual.getProcessoCode();
+        String viewed = individual.getCodeFromScreen();
+        Assert.assertEquals(obtained, viewed);
     }
 
     @E("^o campo \"([^\"]*)\" deve estar com valor \"([^\"]*)\"$")
-    public void oCampoDeveEstarComValor(String arg0, String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void oCampoDeveEstarComValor(String campo, String valor) throws Throwable {
+        individual.checkField(campo, valor);
+    }
+
+    @E("^clica em Editar na linha do registro do processo$")
+    public void clicaEmEditarNaLinhaDoRegistroDoProcesso() {
+        listagem.clickEditar(
+                individual.getProcessoCode()
+        );
     }
 }

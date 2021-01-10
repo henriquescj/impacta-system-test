@@ -7,7 +7,15 @@ public class ProcessoListagem extends BasePage {
         super(stepDriver);
     }
 
-    public void clicouNovoProcesso() {
+    public void clickNovoProcesso() {
         driver.click("btn-novo");
+    }
+
+    public void clickMostrar(String code) {
+        driver.click("btn-show_" + code);
+    }
+
+    public void clickEditar(String code) {
+        driver.click("btn-edit_" + code);
     }
 }
