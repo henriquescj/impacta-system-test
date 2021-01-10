@@ -26,7 +26,7 @@
       Quando clica em Salvar
       E obtém o código do processo
       E clica em Voltar na tela do processo
-      E clica em Mostrar na linha do registro do processo
+      E clica em Mostrar na linha do processo
       Então na tela do processo o código deve ser igual ao obtido
       E o campo "vara" deve estar com valor "Centro"
       E o campo "numero" deve estar com valor "1596"
@@ -45,7 +45,7 @@
       Quando clica em Salvar
       E obtém o código do processo
       E clica em Voltar na tela do processo
-      E clica em Editar na linha do registro do processo
+      E clica em Editar na linha do processo
       E preenche campo "processo_vara" com valor "Sul"
       E preenche campo "processo_numero_processo" com valor "1598"
       E preenche campo "processo_natureza" com valor "Trabalhista"
@@ -55,46 +55,41 @@
       E o campo "numero" deve estar com valor "1598"
       E o campo "natureza" deve estar com valor "Trabalhista"
 
-#    Cenário: Apagar um Processo
-#      Quando o usuário clica no botão de Salvar
-#      E o usuário clica no botão de Apagar
-#      Então o usuário deve ver a mensagem "sem conteudo"
-#
-#    @ignore
-#    Cenário: Não fazer esse
-#      Quando clica em Salvar
-#      E o usuário informa vara com valor de "Algum"
-#      E o usuário informa numero_processo com valor de "20102"
-#      E o usuário informa natureza com valor de "Palavrao"
-#      E o usuário informa partes com valor de "The People vs AJ"
-#      E o usuário informa urgente com valor de "N"
-#      E o usuário informa arbitramento com valor de "S"
-#      E o usuário informa assistente_social com valor de "Roberta"
-#      E o usuário informa data_entrada com valor de "2016-04-17"
-#      E o usuário informa data_saida com valor de "2020-10-30"
-#      E o usuário informa data_agendamento com valor de "2014-05-25"
-#      E o usuário informa status com valor de "Longe"
-#      E o usuário informa observacao com valor de "Nada"
-#      E o usuário clica no botão de salvar novamente
-#      E deseja ver as informações do Processo
-#      Então o usuário deve ver a mensagem "sucesso"
-#      E o usuário deve ver vara com valor de "Algum"
-#      E o usuário deve ver numero_processo com valor de "20102"
-#      E o usuário deve ver natureza com valor de "Palavrao"
-#      E o usuário deve ver partes com valor de "The People vs AJ"
-#      E o usuário deve ver urgente com valor de "N"
-#      E o usuário deve ver arbitramento com valor de "S"
-#      E o usuário deve ver assistente_social com valor de "Roberta"
-#      E o usuário deve ver data_entrada com valor de "2016-04-17"
-#      E o usuário deve ver data_saida com valor de "2020-10-30"
-#      E o usuário deve ver data_agendamento com valor de "2014-05-25"
-#      E o usuário deve ver status com valor de "Longe"
-#      E o usuário deve ver observacao com valor de "Nada nao"
-#
-#    Esquema do Cenário:
-#      Quando o usuário clica no botão de Salvar
-#      E o usuário clica no botão de Apagar
-#      Então o usuário deve ver a mensagem "<mensagem>"
-#      Exemplos:
-#        |mensagem     |
-#        |sem conteudo |
+    Cenário: Apagar um Processo
+      Quando clica em Salvar
+      E obtém o código do processo
+      E clica em Voltar na tela do processo
+      E clica em Apagar na linha do processo
+      E confirma que deseja apagar o processo
+      Então o processo não deve aparecer na lista de processos
+
+    @ignore
+    Cenário: Não fazer esse
+      Quando clica em Salvar
+      E obtém o código do processo
+      E clica em Voltar na tela do processo
+      E clica em Editar na linha do processo
+      E preenche campo "processo_vara" com valor "Sci-fi"
+      E preenche campo "processo_numero_processo" com valor "1984"
+      E preenche campo "processo_natureza" com valor "Big brother"
+      E clica em Salvar
+      Então na tela de confirmação deve retornar mensagem "Processo atualizado com sucesso."
+      E o campo "vara" deve estar com valor "Sci-fi"
+      E o campo "numero" deve estar com valor "1984"
+      E o campo "natureza" deve estar com valor "Big brother"
+
+    Esquema do Cenário:
+      Quando clica em Salvar
+      E obtém o código do processo
+      E clica em Voltar na tela do processo
+      E clica em Editar na linha do processo
+      E preenche campo "processo_numero_processo" com valor "<numero>"
+      E clica em Salvar
+      Então na tela de confirmação deve retornar mensagem "Processo atualizado com sucesso."
+      E o campo "numero" deve estar com valor "<numero>"
+      Exemplos:
+        |numero|
+        |15623 |
+        |15628 |
+        |15624 |
+        |15629 |

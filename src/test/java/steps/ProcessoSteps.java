@@ -1,20 +1,19 @@
 package steps;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.pt.Dado;
+import pages.*;
+import org.junit.Assert;
+import support.BaseSteps;
 import cucumber.api.java.pt.E;
+import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
-import org.junit.Assert;
-import pages.*;
-import support.BaseSteps;
 
 public class ProcessoSteps extends BaseSteps {
-    private static HomePage homePage = new HomePage(driver);
-    private static MenuLateral menuLateral = new MenuLateral(driver);
-    private static ProcessoListagem listagem = new ProcessoListagem(driver);
-    private static ProcessoCadastro cadastro = new ProcessoCadastro(driver);
-    private static ProcessoIndividual individual =  new ProcessoIndividual(driver);
+    private static final HomePage homePage = new HomePage(driver);
+    private static final MenuLateral menuLateral = new MenuLateral(driver);
+    private static final ProcessoListagem listagem = new ProcessoListagem(driver);
+    private static final ProcessoCadastro cadastro = new ProcessoCadastro(driver);
+    private static final ProcessoIndividual individual =  new ProcessoIndividual(driver);
 
     @Dado("^que o usuário está na página inicial$")
     public void queoUsuarioEstaNaPaginaInicial() {
@@ -67,8 +66,8 @@ public class ProcessoSteps extends BaseSteps {
         individual.clickVoltar();
     }
 
-    @E("^clica em Mostrar na linha do registro do processo$")
-    public void clicaEmMostrarNaLinhaDoRegistroDoProcesso() {
+    @E("^clica em Mostrar na linha do processo$")
+    public void clicaEmMostrarNaLinhaDoProcesso() {
         listagem.clickMostrar(
                 individual.getProcessoCode()
         );
@@ -82,13 +81,32 @@ public class ProcessoSteps extends BaseSteps {
     }
 
     @E("^o campo \"([^\"]*)\" deve estar com valor \"([^\"]*)\"$")
-    public void oCampoDeveEstarComValor(String campo, String valor) throws Throwable {
+    public void oCampoDeveEstarComValor(String campo, String valor) {
         individual.checkField(campo, valor);
     }
 
-    @E("^clica em Editar na linha do registro do processo$")
-    public void clicaEmEditarNaLinhaDoRegistroDoProcesso() {
+    @E("^clica em Editar na linha do processo$")
+    public void clicaEmEditarNaLinhaDoProcesso() {
         listagem.clickEditar(
+                individual.getProcessoCode()
+        );
+    }
+
+    @E("^clica em Apagar na linha do processo$")
+    public void clicaEmApagarNaLinhaDoProcesso() {
+        listagem.clickApagar(
+                individual.getProcessoCode()
+        );
+    }
+
+    @E("^confirma que deseja apagar o processo$")
+    public void confirmaQueDesejaApagarOProcesso() {
+        listagem.confirmDeleted();
+    }
+
+    @Então("^o processo não deve aparecer na lista de processos$")
+    public void oProcessoNaoDeveAparecerNaListaDeProcessos() {
+        listagem.checkIfRegistryDoesntExist(
                 individual.getProcessoCode()
         );
     }

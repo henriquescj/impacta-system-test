@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.Assert;
 import support.DriverQA;
 
 public class ProcessoListagem extends BasePage {
@@ -17,5 +18,17 @@ public class ProcessoListagem extends BasePage {
 
     public void clickEditar(String code) {
         driver.click("btn-edit_" + code);
+    }
+
+    public void clickApagar(String code) {
+        driver.click("btn-delete_" + code);
+    }
+
+    public void confirmDeleted() {
+        driver.ChooseOkOnNextConfirmation();
+    }
+
+    public void checkIfRegistryDoesntExist(String code) {
+        Assert.assertFalse(driver.isDisplayed("codigo_" + code));
     }
 }

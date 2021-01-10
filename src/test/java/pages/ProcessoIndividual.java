@@ -10,9 +10,9 @@ public class ProcessoIndividual extends BasePage {
         super(stepDriver);
     }
 
-    public void checkMessage(String mensagem) {
+    public void checkMessage(String message) {
         String messageToCheck = driver.getText("notice");
-        Assert.assertEquals(mensagem, messageToCheck);
+        Assert.assertEquals(message, messageToCheck);
     }
 
     public void clickVoltar() {
@@ -31,8 +31,8 @@ public class ProcessoIndividual extends BasePage {
         return driver.getText("codigo");
     }
 
-    public void checkField(String campo, String valor) {
-        String viewed = driver.getText(campo);
-        Assert.assertEquals(viewed, valor);
+    public void checkField(String field, String value) {
+        String viewed = driver.getText(field);
+        Assert.assertEquals(viewed, value);
     }
 }

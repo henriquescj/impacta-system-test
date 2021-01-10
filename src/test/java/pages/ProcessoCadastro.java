@@ -7,31 +7,27 @@ public class ProcessoCadastro extends BasePage {
         super(stepDriver);
     }
 
-    public void insertText(String campo, String valor) {
-        driver.sendKeys(valor, campo);
+    public void insertText(String field, String value) {
+        driver.sendKeys(value, field);
     }
 
-    public void setRadioButton(String campo, String valor) throws Exception {
-        switch (campo) {
-            case "Arbitramento":
-                if (valor.equals("Sim")) {
-                    driver.click("processo_arbitramento_s");
-                } else {
-                    driver.click("processo_arbitramento_n");
-                }
-                break;
-            default:
-                throw new Exception("Without valid field");
+    public void setRadioButton(String field, String value) throws Exception {
+        if ("Arbitramento".equals(field)) {
+            if (value.equals("Sim")) {
+                driver.click("processo_arbitramento_s");
+            } else {
+                driver.click("processo_arbitramento_n");
+            }
+        } else {
+            throw new Exception("Without valid field");
         }
     }
 
-    public void setSelect(String campo, String valor) throws Exception {
-        switch (campo) {
-            case "Urgente":
-                driver.selectByText(valor, "processo_urgente");
-                break;
-            default:
-                throw new Exception("Without valid field");
+    public void setSelect(String field, String value) throws Exception {
+        if ("Urgente".equals(field)) {
+            driver.selectByText(value, "processo_urgente");
+        } else {
+            throw new Exception("Without valid field");
         }
     }
 
